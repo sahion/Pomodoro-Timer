@@ -1,25 +1,3 @@
-const buttons = document.querySelectorAll('.buttons button');
-const timer = document.querySelector('.timer');
-const pomodoro = document.querySelector('.pomodoroNumber');
-
-let workMinutes = 0.05;
-let breakMinutes = 0.07;
-seconds = workMinutes * 60;
-
-workStatus = true;
-
-pomodoroCount=1;
-
-
-let interval;
-
-let started = false;
-
-const startTimer = () =>  {
-  interval=setInterval(changeEverySecond,1000);
-  pomodoro.textContent=`Pomodoro Number ${pomodoroCount}`;
-}
-
 function changeEverySecond(){
 
   displayTimer();
@@ -64,8 +42,9 @@ function choiceAction(e){
       displayTimer();
       clearInterval(interval);
       started = false;
-      pomodoro.textContent=``;
+      pomodoro.textContent=`Already ended?`;
       document.title = `Pomodoro Timer`;
+      pomodoroCount=1;
       break;
     case 'pause':
       clearInterval(interval);
@@ -75,14 +54,27 @@ function choiceAction(e){
 }
 
 
+const buttons = document.querySelectorAll('.buttons button');
+const timer = document.querySelector('.timer');
+const pomodoro = document.querySelector('.pomodoroNumber');
+let workMinutes = 25;
+let breakMinutes = 5;
+seconds = workMinutes * 60;
+timer.textContent=`${(Math.floor(seconds / 60) < 10)?"0"+Math.floor(seconds / 60):Math.floor(Math.floor(seconds % 60))}:${(Math.floor(seconds % 60) < 10)?"0"+Math.floor(seconds % 60):Math.floor(seconds % 60)}`;
+
+workStatus = true;
+
+pomodoroCount=1;
 
 
+let interval;
 
+let started = false;
 
-
-
-
-
+const startTimer = () =>  {
+  interval=setInterval(changeEverySecond,1000);
+  pomodoro.textContent=`Pomodoro Number ${pomodoroCount}`;
+}
 
 
 buttons.forEach(button => addEventListener('click',choiceAction));
